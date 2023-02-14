@@ -12,18 +12,20 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-     - name: Build Docker image
+      - name: Build Docker image
         run: docker build . -t weather-forecast
 
       - name: Run script
         run: |
           docker run --rm -v $(pwd):/data weather-forecast python script.py
+
       - name: Commit changes
         run: |
           git config --global user.name 'Your Name'
           git config --global user.email 'your.email@example.com'
           git add weather_forecast.xlsx
           git commit -m "Update weather forecast" || true
+
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
