@@ -1,27 +1,34 @@
-name: Update Weather Forecast
+name: Update weather forecast
 
 on:
   schedule:
-    - cron: '0 * * * *'
+    - cron: '*/5 * * * *'  # Run every 5 minutes
 
 jobs:
-  update:
+  update-weather-forecast:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-    - name: Set up Python environment
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.9'
-    - name: Install dependencies
-      run: pip install -r requirements.txt
-    - name: Run script
-      run: python script.py
-    - name: Commit changes
-      run: |
-        git config --global user.email "your_email@example.com"
-        git config --global user.name "Your Name"
-        git add .
-        git commit -m "Update weather forecast"
-        git push
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run script
+        run: python script.py
+
+      - name: Commit changes
+        run: |
+          git config --global user.name 'Your Name'
+          git config --global user.email 'your.email@example.com'
+          git commit -am "Update weather forecast" || true
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
