@@ -12,12 +12,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Build Docker image
-        run: docker build . -t weather-forecast
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
 
       - name: Run script
-        run: |
-          docker run --rm -v $(pwd):/data weather-forecast python script.py
+        run: python test.py
 
       - name: Commit changes
         run: |
