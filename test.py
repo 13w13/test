@@ -2,6 +2,7 @@ import requests
 import pandas as pd
 import datetime
 
+
 # OpenWeatherMap API endpoint
 url = "https://api.openweathermap.org/data/2.5/weather"
 # Coordinates for Budapest, Hungary
@@ -33,4 +34,3 @@ df["last_approved_time"] = timestamp
 # Write the DataFrame to an Excel file
 filename = 'weather_forecast.xlsx'
 df.to_excel(filename, index=False)
-
